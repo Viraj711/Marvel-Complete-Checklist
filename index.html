@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marvel Universe — Complete Watchlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0392B;
+    --red-bright: #E74C3C;
+    --gold: #D4A017;
+    --bg: #080810;
+    --bg2: #0e0e18;
+    --bg3: #13131f;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e0d0;
+    --muted: #666;
+    --subtler: #444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated star-field background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.15) 0%, transparent 100%),
+      radial-gradient(1px 1px at 42% 67%, rgba(255,255,255,0.1) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 12%, rgba(255,255,255,0.12) 0%, transparent 100%),
+      radial-gradient(1px 1px at 91% 55%, rgba(255,255,255,0.08) 0%, transparent 100%),
+      radial-gradient(1px 1px at 33% 88%, rgba(255,255,255,0.1) 0%, transparent 100%),
+      radial-gradient(2px 2px at 60% 40%, rgba(255,255,255,0.06) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 72%, rgba(255,255,255,0.09) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── STICKY HEADER ── */
+  #header {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: linear-gradient(180deg, rgba(8,8,16,0.98) 80%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .title-block { flex: 1; min-width: 200px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(32px, 7vw, 58px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(192,57,43,0.4);
+  }
+
+  h1 span { color: var(--red-bright); }
+
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--red);
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  /* Progress ring + stats */
+  .progress-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .ring-wrap {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+  }
+
+  .ring-wrap svg { transform: rotate(-90deg); }
+
+  .ring-pct {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 17px;
+    color: var(--red-bright);
+  }
+
+  .stat-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    line-height: 1;
+    color: #fff;
+  }
+  .stat-lbl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* Progress bar */
+  .progress-bar-wrap {
+    height: 3px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--red-bright));
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  #search {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 7px 10px 7px 30px;
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  #search:focus { border-color: rgba(192,57,43,0.5); }
+  #search::placeholder { color: var(--subtler); }
+
+  .filter-btn {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .filter-btn:hover { border-color: var(--subtler); color: var(--text); }
+
+  .filter-btn.active {
+    background: var(--red);
+    border-color: var(--red-bright);
+    color: #fff;
+  }
+
+  /* ── MAIN CONTENT ── */
+  #main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 16px 16px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Phase block */
+  .phase {
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .phase:hover { border-color: rgba(255,255,255,0.12); }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    background: var(--bg2);
+    border-left: 3px solid var(--phase-accent, var(--red));
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .phase-header:hover { background: var(--bg3); }
+
+  .phase-meta { flex: 1; min-width: 0; }
+
+  .phase-era {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: var(--phase-accent, var(--red));
+    opacity: 0.75;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .phase-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .phase-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .phase-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    color: var(--phase-accent, var(--red));
+    line-height: 1;
+  }
+
+  .mini-bar-wrap {
+    width: 48px;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 1px;
+    margin-top: 3px;
+  }
+
+  .mini-bar-fill {
+    height: 100%;
+    background: var(--phase-accent, var(--red));
+    border-radius: 1px;
+    transition: width 0.4s ease;
+  }
+
+  .chevron {
+    color: var(--subtler);
+    font-size: 12px;
+    transition: transform 0.25s;
+  }
+
+  .phase.open .chevron { transform: rotate(180deg); }
+
+  /* Items list */
+  .phase-items {
+    display: none;
+    background: var(--bg);
+  }
+
+  .phase.open .phase-items { display: block; }
+
+  .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 16px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .item:hover { background: rgba(255,255,255,0.02); }
+  .item.watched { background: rgba(0,30,0,0.25); }
+
+  /* Checkbox */
+  .cb {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1.5px solid var(--subtler);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: transparent;
+  }
+
+  .item.watched .cb {
+    background: var(--phase-accent, var(--red));
+    border-color: var(--phase-accent, var(--red));
+    box-shadow: 0 0 8px rgba(192,57,43,0.4);
+  }
+
+  .cb-check {
+    color: #fff;
+    font-size: 9px;
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .item.watched .cb-check { opacity: 1; }
+
+  /* Item text */
+  .item-body { flex: 1; min-width: 0; }
+
+  .item-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+  }
+
+  .type-icon { font-size: 12px; opacity: 0.5; flex-shrink: 0; }
+
+  .item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    transition: color 0.2s, text-decoration 0.2s;
+  }
+
+  .item.watched .item-title {
+    color: var(--subtler);
+    text-decoration: line-through;
+  }
+
+  .item-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: var(--phase-accent, var(--red));
+    background: rgba(192,57,43,0.1);
+    border-radius: 3px;
+    padding: 1px 5px;
+    opacity: 0.8;
+    flex-shrink: 0;
+  }
+
+  .item.watched .item-year { opacity: 0.3; }
+
+  .item-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  .item.watched .item-note { color: var(--subtler); opacity: 0.5; }
+
+  .type-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: var(--subtler);
+    flex-shrink: 0;
+    margin-top: 2px;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  /* Empty state */
+  .empty {
+    text-align: center;
+    padding: 48px 20px;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 16px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    color: var(--subtler);
+    text-transform: uppercase;
+  }
+
+  /* Reset btn */
+  .reset-btn {
+    background: transparent;
+    border: 1px solid var(--subtler);
+    color: var(--subtler);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: all 0.2s;
+  }
+
+  .reset-btn:hover { border-color: var(--red); color: var(--red); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #111;
+    border: 1px solid var(--red);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    z-index: 999;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 500px) {
+    h1 { font-size: 36px; }
+    .stat-cols { grid-template-columns: 1fr 1fr; }
+    .controls { flex-direction: column; align-items: stretch; }
+    .filter-btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="header-inner">
+    <div class="header-top">
+      <div class="title-block">
+        <div class="eyebrow">The Complete</div>
+        <h1>MARVEL <span>UNIVERSE</span></h1>
+        <div class="subtitle">Chronological Watchlist · All Media</div>
+      </div>
+      <div class="progress-area">
+        <div class="ring-wrap">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <circle cx="32" cy="32" r="26" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+            <circle id="ring-fill" cx="32" cy="32" r="26" fill="none" stroke="#E74C3C" stroke-width="4"
+              stroke-dasharray="163.36" stroke-dashoffset="163.36" stroke-linecap="round" style="transition:stroke-dashoffset 0.6s ease"/>
+          </svg>
+          <div class="ring-pct" id="ring-pct">0%</div>
+        </div>
+        <div class="stat-cols">
+          <div class="stat">
+            <div class="stat-num" id="stat-watched">0</div>
+            <div class="stat-lbl">Watched</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" id="stat-total">0</div>
+            <div class="stat-lbl">Total</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" id="stat-films">0</div>
+            <div class="stat-lbl">Films</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" id="stat-left">0</div>
+            <div class="stat-lbl">Left</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="prog-bar" style="width:0%"></div>
+    </div>
+    <div class="controls">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input id="search" type="text" placeholder="Search any title, year, or note…" autocomplete="off">
+      </div>
+      <button class="filter-btn active" data-f="all">All</button>
+      <button class="filter-btn" data-f="film">Films</button>
+      <button class="filter-btn" data-f="series">Series</button>
+      <button class="filter-btn" data-f="cartoon">Cartoons</button>
+      <button class="filter-btn" data-f="short">Shorts</button>
+      <button class="filter-btn" data-f="unwatched">Unwatched</button>
+      <button class="filter-btn" data-f="watched">Watched</button>
+      <button class="reset-btn" id="reset-btn" title="Clear all progress">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div id="main"></div>
+
+<div class="footer">
+  ⚡ Excelsior · Data saved in your browser · <span id="total-count"></span> titles
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'marvel-watchlist-v2';
+
+const phases = [
+  {
+    id:'legacy-animated', label:'MARVEL LEGACY — CLASSIC CARTOONS', accent:'#D4A55A', era:'1966–2000',
+    items:[
+      {id:'c1',type:'cartoon',title:'The Marvel Super Heroes',year:'1966',note:'First Marvel animation — Cap, Thor, Hulk, Iron Man, Namor'},
+      {id:'c2',type:'cartoon',title:'Spider-Man (1967)',year:'1967–1970',note:"The OG. 'Spider-Man, Spider-Man…'"},
+      {id:'c3',type:'cartoon',title:'The Fantastic Four (1967)',year:'1967–1970',note:'Hanna-Barbera classic'},
+      {id:'c4',type:'cartoon',title:'The New Fantastic Four (1978)',year:'1978',note:'H.E.R.B.I.E. era'},
+      {id:'c5',type:'cartoon',title:'Spider-Woman (1979)',year:'1979–1980'},
+      {id:'c6',type:'cartoon',title:'Spider-Man (1981)',year:'1981–1982'},
+      {id:'c7',type:'cartoon',title:'Spider-Man and His Amazing Friends',year:'1981–1983',note:'Spidey teams with Iceman & Firestar'},
+      {id:'c8',type:'cartoon',title:'The Incredible Hulk (1982)',year:'1982–1983'},
+      {id:'c9',type:'cartoon',title:'Pryde of the X-Men (Pilot)',year:'1989',note:'Unaired pilot that led to the 90s series'},
+    ]
+  },
+  {
+    id:'legacy-xmen', label:'MARVEL LEGACY — X-MEN FILMS (FOX)', accent:'#FFD700', era:'2000–2020',
+    items:[
+      {id:'xm1',type:'film',title:'X-Men',year:'2000',note:'The one that started the Fox era'},
+      {id:'xm2',type:'film',title:'X2: X-Men United',year:'2003'},
+      {id:'xm3',type:'film',title:'X-Men: The Last Stand',year:'2006'},
+      {id:'xm4',type:'film',title:'X-Men Origins: Wolverine',year:'2009'},
+      {id:'xm5',type:'film',title:'X-Men: First Class',year:'2011',note:'Set in the 1960s'},
+      {id:'xm6',type:'film',title:'The Wolverine',year:'2013',note:'Set in Japan'},
+      {id:'xm7',type:'film',title:'X-Men: Days of Future Past',year:'2014',note:'Timeline-merging masterpiece'},
+      {id:'xm8',type:'film',title:'Deadpool',year:'2016',note:'The R-rated rule-breaker'},
+      {id:'xm9',type:'film',title:'X-Men: Apocalypse',year:'2016',note:'Set in the 1980s'},
+      {id:'xm10',type:'film',title:'Logan',year:'2017',note:'Set in 2029 — gut-punch farewell'},
+      {id:'xm11',type:'film',title:'Deadpool 2',year:'2018'},
+      {id:'xm12',type:'film',title:'X-Men: Dark Phoenix',year:'2019'},
+      {id:'xm13',type:'film',title:'The New Mutants',year:'2020'},
+    ]
+  },
+  {
+    id:'legacy-spiderman', label:'MARVEL LEGACY — SPIDER-MAN FILMS (SONY/RAIMI/WEBB)', accent:'#E23636', era:'2002–2014',
+    items:[
+      {id:'sm1',type:'film',title:'Spider-Man (Raimi)',year:'2002',note:'Tobey Maguire. The upside-down kiss.'},
+      {id:'sm2',type:'film',title:'Spider-Man 2 (Raimi)',year:'2004',note:'Often called one of the best superhero films ever'},
+      {id:'sm3',type:'film',title:'Spider-Man 3 (Raimi)',year:'2007',note:'The emo dance.'},
+      {id:'sm4',type:'film',title:'The Amazing Spider-Man',year:'2012',note:'Andrew Garfield era begins'},
+      {id:'sm5',type:'film',title:'The Amazing Spider-Man 2',year:'2014'},
+    ]
+  },
+  {
+    id:'legacy-ff', label:'MARVEL LEGACY — FANTASTIC FOUR (FOX)', accent:'#1E90FF', era:'1994–2015',
+    items:[
+      {id:'ff1',type:'film',title:'The Fantastic Four (Unreleased)',year:'1994',note:"Roger Corman's infamous shelved film — watch for history"},
+      {id:'ff2',type:'film',title:'Fantastic Four',year:'2005'},
+      {id:'ff3',type:'film',title:'Fantastic Four: Rise of the Silver Surfer',year:'2007'},
+      {id:'ff4',type:'film',title:'Fantastic Four (Fant4stic)',year:'2015',note:'The infamous reboot'},
+    ]
+  },
+  {
+    id:'legacy-other', label:'MARVEL LEGACY — OTHER PRE-MCU FILMS', accent:'#90EE90', era:'1986–2008',
+    items:[
+      {id:'lo1',type:'film',title:'Howard the Duck',year:'1986',note:"Marvel's first theatrical release"},
+      {id:'lo2',type:'film',title:'The Punisher (1989)',year:'1989',note:'Dolph Lundgren'},
+      {id:'lo3',type:'film',title:'Captain America (1990)',year:'1990',note:'Low-budget but historically interesting'},
+      {id:'lo4',type:'film',title:'Blade',year:'1998',note:'The film that proved Marvel could work on screen'},
+      {id:'lo5',type:'film',title:'Blade II',year:'2002',note:'Guillermo del Toro directs'},
+      {id:'lo6',type:'film',title:'Daredevil',year:'2003',note:'Ben Affleck'},
+      {id:'lo7',type:'film',title:'Hulk (Ang Lee)',year:'2003',note:'The artsy experimental one'},
+      {id:'lo8',type:'film',title:'The Punisher (2004)',year:'2004',note:'Tom Jane'},
+      {id:'lo9',type:'film',title:'Elektra',year:'2005'},
+      {id:'lo10',type:'film',title:'Blade: Trinity',year:'2004',note:'Ryan Reynolds as Hannibal King'},
+      {id:'lo11',type:'film',title:'Ghost Rider',year:'2007',note:'Nicolas Cage, flaming skull'},
+      {id:'lo12',type:'film',title:'Punisher: War Zone',year:'2008'},
+      {id:'lo13',type:'film',title:'Ghost Rider: Spirit of Vengeance',year:'2012'},
+    ]
+  },
+  {
+    id:'90s-animated', label:"MARVEL — 90s ANIMATED UNIVERSE", accent:'#9B59FF', era:'1992–2001',
+    items:[
+      {id:'a1',type:'cartoon',title:'X-Men: The Animated Series',year:'1992–1997',note:'THE classic. Required viewing.'},
+      {id:'a2',type:'cartoon',title:'Spider-Man: The Animated Series',year:'1994–1998',note:'65 episodes, incredible stories'},
+      {id:'a3',type:'cartoon',title:'Iron Man: The Animated Series',year:'1994–1996'},
+      {id:'a4',type:'cartoon',title:'Fantastic Four: The Animated Series',year:'1994–1996'},
+      {id:'a5',type:'cartoon',title:'The Incredible Hulk (1996)',year:'1996–1997'},
+      {id:'a6',type:'cartoon',title:'The Avengers: United They Stand',year:'1999–2000'},
+      {id:'a7',type:'cartoon',title:'Spider-Man Unlimited',year:'1999–2001',note:'Alternate Earth setting'},
+      {id:'a8',type:'cartoon',title:'Silver Surfer: The Animated Series',year:'1998'},
+    ]
+  },
+  {
+    id:'2000s-animated', label:'MARVEL — 2000s ANIMATED ERA', accent:'#00CC88', era:'2000–2011',
+    items:[
+      {id:'b1',type:'cartoon',title:'X-Men: Evolution',year:'2000–2003',note:'Teen X-Men reimagining'},
+      {id:'b2',type:'cartoon',title:'Spider-Man: The New Animated Series (MTV)',year:'2003',note:'CG series on MTV'},
+      {id:'b3',type:'cartoon',title:'The Spectacular Spider-Man',year:'2008–2009',note:'Fan-favourite, criminally cancelled'},
+      {id:'b4',type:'cartoon',title:'Wolverine and the X-Men',year:'2008–2009'},
+      {id:'b5',type:'cartoon',title:'The Avengers: Earth\'s Mightiest Heroes',year:'2010–2012',note:'Excellent 52-episode run'},
+      {id:'b6',type:'cartoon',title:'Hulk vs. Wolverine (Animated Film)',year:'2009'},
+      {id:'b7',type:'cartoon',title:'Hulk vs. Thor (Animated Film)',year:'2009'},
+      {id:'b8',type:'cartoon',title:'Thor: Tales of Asgard (Animated Film)',year:'2011'},
+      {id:'b9',type:'cartoon',title:'Marvel Anime: Iron Man',year:'2010–2011'},
+      {id:'b10',type:'cartoon',title:'Marvel Anime: Wolverine',year:'2011'},
+      {id:'b11',type:'cartoon',title:'Marvel Anime: X-Men',year:'2011'},
+      {id:'b12',type:'cartoon',title:'Marvel Anime: Blade',year:'2011–2012'},
+      {id:'b13',type:'cartoon',title:'Iron Man: Armored Adventures',year:'2009–2012',note:'Teen Tony Stark'},
+    ]
+  },
+  {
+    id:'mcu-phase1', label:'MCU — PHASE 1: THE INFINITY SAGA BEGINS', accent:'#FF6B00', era:'2008–2012',
+    items:[
+      {id:'p1-1',type:'film',title:'Iron Man',year:'2008',note:"Where it all began. 'I am Iron Man.'"},
+      {id:'p1-2',type:'film',title:'The Incredible Hulk',year:'2008',note:'Edward Norton. Ties into later MCU'},
+      {id:'p1-3',type:'short',title:'One-Shot: The Consultant',year:'2011',note:'Agent Coulson. Set between films.'},
+      {id:'p1-4',type:'film',title:'Iron Man 2',year:'2010'},
+      {id:'p1-5',type:'short',title:"One-Shot: A Funny Thing Happened on the Way to Thor's Hammer",year:'2011',note:'Coulson en route to New Mexico'},
+      {id:'p1-6',type:'film',title:'Thor',year:'2011'},
+      {id:'p1-7',type:'film',title:'Captain America: The First Avenger',year:'2011',note:'Chronological start of MCU story'},
+      {id:'p1-8',type:'short',title:'One-Shot: Agent Carter',year:'2013',note:"Set after WW2 — bridges to modern MCU"},
+      {id:'p1-9',type:'film',title:'The Avengers',year:'2012',note:"Earth's Mightiest Heroes assemble"},
+      {id:'p1-10',type:'short',title:'One-Shot: Item 47',year:'2012',note:'Aftermath of the Battle of New York'},
+    ]
+  },
+  {
+    id:'mcu-phase2', label:'MCU — PHASE 2', accent:'#9B59B6', era:'2013–2015',
+    items:[
+      {id:'p2-1',type:'film',title:'Iron Man 3',year:'2013'},
+      {id:'p2-2',type:'short',title:'One-Shot: All Hail the King',year:'2014',note:'Trevor Slattery in prison after Iron Man 3'},
+      {id:'p2-3',type:'series',title:"Agents of S.H.I.E.L.D. — Season 1 (Eps 1–7)",year:'2013',note:'After The Avengers'},
+      {id:'p2-4',type:'film',title:'Thor: The Dark World',year:'2013'},
+      {id:'p2-5',type:'series',title:"Agents of S.H.I.E.L.D. — Season 1 (Eps 8–16)",year:'2013–2014'},
+      {id:'p2-6',type:'film',title:'Captain America: The Winter Soldier',year:'2014'},
+      {id:'p2-7',type:'series',title:"Agents of S.H.I.E.L.D. — Season 1 (Eps 17–22)",year:'2014',note:'After The Winter Soldier'},
+      {id:'p2-8',type:'film',title:'Guardians of the Galaxy',year:'2014'},
+      {id:'p2-9',type:'series',title:"Agents of S.H.I.E.L.D. — Season 2",year:'2014–2015'},
+      {id:'p2-10',type:'film',title:'Avengers: Age of Ultron',year:'2015'},
+      {id:'p2-11',type:'short',title:'Team Thor (Part 1)',year:'2016',note:'Mockumentary set during Civil War era'},
+      {id:'p2-12',type:'series',title:'Agent Carter — Season 1',year:'2015',note:'Peggy in 1940s LA'},
+      {id:'p2-13',type:'film',title:'Ant-Man',year:'2015'},
+    ]
+  },
+  {
+    id:'disney-animated-2012', label:'MARVEL — DISNEY ERA ANIMATED (2012–2019)', accent:'#00CED1', era:'2012–2019',
+    items:[
+      {id:'da1',type:'cartoon',title:'Ultimate Spider-Man',year:'2012–2017',note:'4 seasons, 104 episodes'},
+      {id:'da2',type:'cartoon',title:'Hulk and the Agents of S.M.A.S.H.',year:'2013–2015'},
+      {id:'da3',type:'cartoon',title:'Avengers Assemble',year:'2013–2019',note:'5 seasons'},
+      {id:'da4',type:'cartoon',title:'Guardians of the Galaxy (Animated)',year:'2015–2019',note:'3 seasons'},
+      {id:'da5',type:'cartoon',title:"Marvel's Spider-Man (2017)",year:'2017–2020',note:'3 seasons — high school Peter'},
+      {id:'da6',type:'cartoon',title:'Marvel Rising: Secret Warriors (Film)',year:'2018',note:'Ms. Marvel, Squirrel Girl, Ghost-Spider'},
+      {id:'da7',type:'cartoon',title:'Marvel Rising: Chasing Ghosts',year:'2019',note:'Special'},
+      {id:'da8',type:'cartoon',title:'Marvel Rising: Heart of Iron',year:'2019',note:'Ironheart special'},
+    ]
+  },
+  {
+    id:'mcu-phase3a', label:'MCU — PHASE 3 (PART 1)', accent:'#27AE60', era:'2016–2018',
+    items:[
+      {id:'p3-1',type:'series',title:'Agent Carter — Season 2',year:'2016'},
+      {id:'p3-2',type:'series',title:"Agents of S.H.I.E.L.D. — Season 3",year:'2015–2016'},
+      {id:'p3-3',type:'film',title:'Captain America: Civil War',year:'2016',note:'Team Cap vs Team Iron Man'},
+      {id:'p3-4',type:'short',title:'Team Thor (Part 2)',year:'2017',note:"Thor's life during Ragnarok gap"},
+      {id:'p3-5',type:'series',title:'Daredevil — Season 1',year:'2015',note:"Netflix. Hell's Kitchen. Charlie Cox."},
+      {id:'p3-6',type:'series',title:'Jessica Jones — Season 1',year:'2015',note:'Netflix noir superhero'},
+      {id:'p3-7',type:'series',title:'Daredevil — Season 2',year:'2016',note:'Netflix. Punisher & Elektra arrive.'},
+      {id:'p3-8',type:'series',title:'Luke Cage — Season 1',year:'2016',note:'Netflix. Harlem hero.'},
+      {id:'p3-9',type:'series',title:'Iron Fist — Season 1',year:'2017',note:'Netflix'},
+      {id:'p3-10',type:'film',title:'Doctor Strange',year:'2016',note:'Enter the Multiverse'},
+      {id:'p3-11',type:'series',title:"Agents of S.H.I.E.L.D. — Season 4",year:'2016–2017'},
+      {id:'p3-12',type:'film',title:'Guardians of the Galaxy Vol. 2',year:'2017',note:'Set in 2014'},
+      {id:'p3-13',type:'series',title:'The Defenders (Netflix)',year:'2017',note:'DD, JJ, LC, IF team up'},
+      {id:'p3-14',type:'film',title:'Spider-Man: Homecoming',year:'2017',note:"Tom Holland. MCU's Spidey debut."},
+      {id:'p3-15',type:'series',title:'The Punisher — Season 1',year:'2017',note:'Netflix. Jon Bernthal.'},
+      {id:'p3-16',type:'short',title:'Team Darryl',year:'2018',note:"Thor's roommate mockumentary"},
+      {id:'p3-17',type:'film',title:'Thor: Ragnarok',year:'2017',note:'Hela. Gladiator Thor. Planet Hulk.'},
+      {id:'p3-18',type:'series',title:'Jessica Jones — Season 2',year:'2018',note:'Netflix'},
+      {id:'p3-19',type:'film',title:'Black Panther',year:'2018',note:'Wakanda Forever. RIP Chadwick.'},
+      {id:'p3-20',type:'series',title:'Luke Cage — Season 2',year:'2018',note:'Netflix'},
+      {id:'p3-21',type:'series',title:'Iron Fist — Season 2',year:'2018',note:'Netflix'},
+      {id:'p3-22',type:'film',title:'Avengers: Infinity War',year:'2018',note:'THAT snap.'},
+      {id:'p3-23',type:'series',title:'Daredevil — Season 3',year:'2018',note:'Netflix. Best season.'},
+      {id:'p3-24',type:'series',title:'Cloak & Dagger — Season 1',year:'2018',note:'Freeform/Disney'},
+    ]
+  },
+  {
+    id:'sony-spiderverse', label:"SONY — SPIDER-VERSE & SPIDER-MAN UNIVERSE", accent:'#DA70D6', era:'2018–present',
+    items:[
+      {id:'sv1',type:'film',title:'Spider-Man: Into the Spider-Verse',year:'2018',note:'Miles Morales. Oscar winner. Masterpiece.'},
+      {id:'sv2',type:'film',title:'Venom',year:'2018',note:"Sony's SSU begins"},
+      {id:'sv3',type:'film',title:'Venom: Let There Be Carnage',year:'2021'},
+      {id:'sv4',type:'film',title:'Morbius',year:'2022',note:"It's Morbin' time"},
+      {id:'sv5',type:'film',title:'Spider-Man: Across the Spider-Verse',year:'2023'},
+      {id:'sv6',type:'film',title:'Madame Web',year:'2024'},
+      {id:'sv7',type:'film',title:'Venom: The Last Dance',year:'2024'},
+      {id:'sv8',type:'film',title:'Kraven the Hunter',year:'2024'},
+      {id:'sv9',type:'film',title:'Spider-Man: Beyond the Spider-Verse',year:'TBA',note:'Upcoming — Miles Morales finale'},
+    ]
+  },
+  {
+    id:'mcu-phase3b', label:'MCU — PHASE 3 (PART 2: INFINITY SAGA CONCLUSION)', accent:'#E74C3C', era:'2018–2019',
+    items:[
+      {id:'p3b-1',type:'series',title:'The Punisher — Season 2',year:'2019',note:'Netflix'},
+      {id:'p3b-2',type:'series',title:'Jessica Jones — Season 3',year:'2019',note:'Netflix final season'},
+      {id:'p3b-3',type:'series',title:'Cloak & Dagger — Season 2',year:'2019'},
+      {id:'p3b-4',type:'series',title:"Agents of S.H.I.E.L.D. — Season 5",year:'2017–2018'},
+      {id:'p3b-5',type:'film',title:'Ant-Man and the Wasp',year:'2018',note:'Set during Infinity War'},
+      {id:'p3b-6',type:'film',title:'Captain Marvel',year:'2019',note:'Set in the 1990s'},
+      {id:'p3b-7',type:'film',title:'Avengers: Endgame',year:'2019',note:'The culmination of 11 years.'},
+      {id:'p3b-8',type:'series',title:"Agents of S.H.I.E.L.D. — Season 6",year:'2019'},
+      {id:'p3b-9',type:'film',title:'Spider-Man: Far From Home',year:'2019',note:'Epilogue to the Infinity Saga'},
+      {id:'p3b-10',type:'series',title:"Agents of S.H.I.E.L.D. — Season 7",year:'2020',note:'Final season'},
+    ]
+  },
+  {
+    id:'mcu-phase4', label:'MCU — PHASE 4: THE MULTIVERSE SAGA BEGINS', accent:'#3498DB', era:'2020–2022',
+    items:[
+      {id:'p4-1',type:'series',title:'WandaVision',year:'2021',note:'Disney+. Reality-warping sitcom masterpiece.'},
+      {id:'p4-2',type:'series',title:'The Falcon and the Winter Soldier',year:'2021',note:'Disney+. Sam becomes Cap.'},
+      {id:'p4-3',type:'film',title:'Black Widow',year:'2021',note:'Set after Civil War'},
+      {id:'p4-4',type:'series',title:'Loki — Season 1',year:'2021',note:'Disney+. Time Variance Authority.'},
+      {id:'p4-5',type:'film',title:'Shang-Chi and the Legend of the Ten Rings',year:'2021'},
+      {id:'p4-6',type:'series',title:'What If…? — Season 1',year:'2021',note:'Disney+. Animated anthology.'},
+      {id:'p4-7',type:'film',title:'Eternals',year:'2021'},
+      {id:'p4-8',type:'series',title:'Hawkeye',year:'2021',note:'Disney+. Christmas in NYC.'},
+      {id:'p4-9',type:'film',title:'Spider-Man: No Way Home',year:'2021',note:'All three Spider-Men.'},
+      {id:'p4-10',type:'film',title:'Doctor Strange in the Multiverse of Madness',year:'2022'},
+      {id:'p4-11',type:'series',title:'Moon Knight',year:'2022',note:'Disney+. Oscar Isaac.'},
+      {id:'p4-12',type:'series',title:'Ms. Marvel',year:'2022',note:'Disney+. Kamala Khan.'},
+      {id:'p4-13',type:'film',title:'Thor: Love and Thunder',year:'2022'},
+      {id:'p4-14',type:'series',title:'She-Hulk: Attorney at Law',year:'2022',note:'Disney+. Fourth-wall breaks.'},
+      {id:'p4-15',type:'series',title:'Special Presentation: Werewolf by Night',year:'2022',note:'Disney+. Black & white horror homage.'},
+      {id:'p4-16',type:'film',title:'Black Panther: Wakanda Forever',year:'2022'},
+      {id:'p4-17',type:'series',title:'Special: The Guardians of the Galaxy Holiday Special',year:'2022',note:'Disney+'},
+      {id:'p4-18',type:'cartoon',title:'I Am Groot (Season 1)',year:'2022',note:'Disney+. Short animated episodes.'},
+    ]
+  },
+  {
+    id:'mcu-phase5', label:'MCU — PHASE 5', accent:'#E91E8C', era:'2023–2025',
+    items:[
+      {id:'p5-1',type:'series',title:'Secret Invasion',year:'2023',note:'Disney+. Skrull paranoia.'},
+      {id:'p5-2',type:'film',title:'Ant-Man and the Wasp: Quantumania',year:'2023'},
+      {id:'p5-3',type:'film',title:'Guardians of the Galaxy Vol. 3',year:'2023',note:"James Gunn's farewell. Rocket's story."},
+      {id:'p5-4',type:'series',title:'Loki — Season 2',year:'2023',note:'Disney+. He Who Remains.'},
+      {id:'p5-5',type:'series',title:'Echo',year:'2024',note:'Disney+. Marvel Spotlight debut.'},
+      {id:'p5-6',type:'film',title:'The Marvels',year:'2023',note:'Carol, Kamala, Monica swap powers.'},
+      {id:'p5-7',type:'series',title:'What If…? — Season 2',year:'2023',note:'Disney+.'},
+      {id:'p5-8',type:'cartoon',title:"X-Men '97",year:'2024',note:'Disney+. Direct sequel to the 90s cartoon. PHENOMENAL.'},
+      {id:'p5-9',type:'series',title:'Agatha All Along',year:'2024',note:'Disney+. WandaVision spin-off.'},
+      {id:'p5-10',type:'cartoon',title:'Your Friendly Neighborhood Spider-Man',year:'2025',note:'Disney+. Animated MCU Spider-Man.'},
+      {id:'p5-11',type:'cartoon',title:'Eyes of Wakanda',year:'2024',note:'Disney+. Animated anthology.'},
+      {id:'p5-12',type:'film',title:'Deadpool & Wolverine',year:'2024',note:'Deadpool enters the MCU. Hugh Jackman returns.'},
+      {id:'p5-13',type:'series',title:'What If…? — Season 3',year:'2024',note:'Disney+.'},
+      {id:'p5-14',type:'cartoon',title:'I Am Groot (Season 2)',year:'2023',note:'Disney+.'},
+      {id:'p5-15',type:'film',title:'Captain America: Brave New World',year:'2025',note:'Sam Wilson as Cap. Red Hulk.'},
+      {id:'p5-16',type:'series',title:'Daredevil: Born Again — Season 1',year:'2025',note:'Disney+. Charlie Cox returns.'},
+      {id:'p5-17',type:'film',title:'Thunderbolts*',year:'2025',note:'Anti-hero team-up. Phase 5 finale.'},
+      {id:'p5-18',type:'series',title:'Ironheart',year:'2025',note:'Disney+. Riri Williams.'},
+    ]
+  },
+  {
+    id:'mcu-phase6', label:'MCU — PHASE 6: THE MULTIVERSE SAGA CONCLUSION', accent:'#FF6633', era:'2025–2027',
+    items:[
+      {id:'p6-1',type:'film',title:'The Fantastic Four: First Steps',year:'2025',note:'Pedro Pascal as Reed Richards. Galactus arrives.'},
+      {id:'p6-2',type:'series',title:'Daredevil: Born Again — Season 2',year:'2026',note:'Disney+.'},
+      {id:'p6-3',type:'series',title:'Special: The Punisher — One Last Kill',year:'2026',note:'Jon Bernthal. Marvel Spotlight.'},
+      {id:'p6-4',type:'film',title:'Spider-Man: Brand New Day',year:'2026',note:"Tom Holland's 4th solo film."},
+      {id:'p6-5',type:'film',title:'Avengers: Doomsday',year:'2026',note:'RDJ as Doctor Doom. Russo Brothers return.'},
+      {id:'p6-6',type:'series',title:'Wonder Man',year:'2027',note:'Disney+.'},
+      {id:'p6-7',type:'film',title:'Avengers: Secret Wars',year:'2027',note:'The grand finale of the Multiverse Saga.'},
+    ]
+  },
+];
+
+// ── STATE ──
+let checked = {};
+try {
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (raw) checked = JSON.parse(raw);
+} catch(e) {}
+
+let activeFilter = 'all';
+let searchVal = '';
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); } catch(e) {}
+}
+
+function typeLabel(t) {
+  return {film:'Film',series:'Series',cartoon:'Cartoon',short:'Short'}[t] || t;
+}
+
+function typeEmoji(t) {
+  return {film:'🎬',series:'📺',cartoon:'🎞️',short:'📹'}[t] || '▪';
+}
+
+function passesFilter(item) {
+  const f = activeFilter;
+  if (f === 'film' && item.type !== 'film') return false;
+  if (f === 'series' && item.type !== 'series') return false;
+  if (f === 'cartoon' && item.type !== 'cartoon') return false;
+  if (f === 'short' && item.type !== 'short') return false;
+  if (f === 'watched' && !checked[item.id]) return false;
+  if (f === 'unwatched' && checked[item.id]) return false;
+  if (searchVal) {
+    const q = searchVal.toLowerCase();
+    if (!item.title.toLowerCase().includes(q) &&
+        !item.year.toLowerCase().includes(q) &&
+        !(item.note||'').toLowerCase().includes(q)) return false;
+  }
+  return true;
+}
+
+function countTotal() {
+  let t = 0;
+  phases.forEach(p => p.items.forEach(() => t++));
+  return t;
+}
+
+function countFilms() {
+  let t = 0;
+  phases.forEach(p => p.items.forEach(i => { if(i.type==='film') t++; }));
+  return t;
+}
+
+function countWatched() {
+  return Object.values(checked).filter(Boolean).length;
+}
+
+function updateStats() {
+  const total = countTotal();
+  const watched = countWatched();
+  const films = countFilms();
+  const pct = total ? Math.round((watched/total)*100) : 0;
+
+  document.getElementById('stat-watched').textContent = watched;
+  document.getElementById('stat-total').textContent = total;
+  document.getElementById('stat-films').textContent = films;
+  document.getElementById('stat-left').textContent = total - watched;
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('prog-bar').style.width = pct + '%';
+
+  const circumference = 163.36;
+  const offset = circumference - (circumference * pct / 100);
+  document.getElementById('ring-fill').style.strokeDashoffset = offset;
+}
+
+function render() {
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  let anyVisible = false;
+
+  phases.forEach(phase => {
+    const visItems = phase.items.filter(passesFilter);
+    if (visItems.length === 0) return;
+    anyVisible = true;
+
+    const phaseWatched = phase.items.filter(i => checked[i.id]).length;
+    const phaseTotal = phase.items.length;
+    const phasePct = phaseTotal ? Math.round(phaseWatched/phaseTotal*100) : 0;
+
+    const div = document.createElement('div');
+    div.className = 'phase open';
+    div.dataset.id = phase.id;
+    div.style.setProperty('--phase-accent', phase.accent);
+
+    div.innerHTML = `
+      <div class="phase-header" onclick="togglePhase('${phase.id}')">
+        <div class="phase-meta">
+          <div class="phase-era">${phase.era}</div>
+          <div class="phase-title">${phase.label}</div>
+        </div>
+        <div class="phase-right">
+          <div>
+            <div class="phase-count">${phaseWatched}/${phaseTotal}</div>
+            <div class="mini-bar-wrap">
+              <div class="mini-bar-fill" style="width:${phasePct}%"></div>
+            </div>
+          </div>
+          <div class="chevron">▼</div>
+        </div>
+      </div>
+      <div class="phase-items">
+        ${visItems.map(item => `
+          <div class="item${checked[item.id] ? ' watched' : ''}" id="item-${item.id}" onclick="toggleItem('${item.id}')">
+            <div class="cb"><span class="cb-check">✓</span></div>
+            <div class="item-body">
+              <div class="item-top">
+                <span class="type-icon">${typeEmoji(item.type)}</span>
+                <span class="item-title">${item.title}</span>
+                <span class="item-year">${item.year}</span>
+              </div>
+              ${item.note ? `<div class="item-note">${item.note}</div>` : ''}
+            </div>
+            <div class="type-badge">${typeLabel(item.type)}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    main.appendChild(div);
+  });
+
+  if (!anyVisible) {
+    main.innerHTML = '<div class="empty">No titles match your search.</div>';
+  }
+}
+
+window.togglePhase = function(id) {
+  const el = document.querySelector(`.phase[data-id="${id}"]`);
+  if (el) el.classList.toggle('open');
+};
+
+window.toggleItem = function(id) {
+  checked[id] = !checked[id];
+  save();
+
+  const el = document.getElementById('item-' + id);
+  if (el) el.classList.toggle('watched', !!checked[id]);
+
+  // Update phase counter
+  const phaseEl = el?.closest('.phase');
+  if (phaseEl) {
+    const phaseId = phaseEl.dataset.id;
+    const phase = phases.find(p => p.id === phaseId);
+    if (phase) {
+      const pw = phase.items.filter(i => checked[i.id]).length;
+      const pt = phase.items.length;
+      const pct = pt ? Math.round(pw/pt*100) : 0;
+      phaseEl.querySelector('.phase-count').textContent = `${pw}/${pt}`;
+      phaseEl.querySelector('.mini-bar-fill').style.width = pct + '%';
+    }
+  }
+
+  updateStats();
+
+  if (checked[id]) {
+    showToast('✓ Marked as watched');
+  }
+};
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// Filters
+document.querySelectorAll('.filter-btn[data-f]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn[data-f]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.f;
+    render();
+  });
+});
+
+// Search
+let searchTimer;
+document.getElementById('search').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    searchVal = e.target.value.trim();
+    render();
+  }, 200);
+});
+
+// Reset
+document.getElementById('reset-btn').addEventListener('click', () => {
+  if (confirm('Clear all watch progress? This cannot be undone.')) {
+    checked = {};
+    save();
+    render();
+    updateStats();
+    showToast('Progress cleared');
+  }
+});
+
+// Total count
+document.getElementById('total-count').textContent = countTotal();
+
+// Init
+render();
+updateStats();
+</script>
+</body>
+</html>
