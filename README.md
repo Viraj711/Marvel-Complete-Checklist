@@ -15,7 +15,7 @@ A simple and interactive Marvel Cinematic Universe (MCU) checklist designed to h
 
 Visit the checklist here:
 
-https://viraj711.github.io/marvel-complete-checklist/
+https://viraj711.github.io/Marvel-Complete-Checklist/
 
 ## Technologies Used
 
